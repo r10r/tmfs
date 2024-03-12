@@ -30,10 +30,14 @@ int main(int argc, char ** argv)
   /* vtable setup */
   struct fuse_operations ops;
   memset(&ops, 0, sizeof (ops));
-  ops.read    = tmfs_read;
-  ops.getattr = tmfs_getattr;
-  ops.readdir = tmfs_readdir;
-  ops.readlink = tmfs_readlink;
+  ops.open       = tmfs_open;
+  ops.release    = tmfs_release;
+  ops.read       = tmfs_read;
+  ops.getattr    = tmfs_getattr;
+  ops.opendir    = tmfs_opendir;
+  ops.readdir    = tmfs_readdir;
+  ops.releasedir = tmfs_releasedir;
+  ops.readlink   = tmfs_readlink;
 
   /* lets go */
   fuse_main(argc, argv, &ops, NULL);

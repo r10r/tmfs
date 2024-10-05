@@ -34,14 +34,22 @@ struct tmfs {
 };
 
 /** transforms a virtual paths in the tmfs's root to the real path in hfs's root */
-std::string get_real_path(const std::string & path);
+fs::path get_real_path(const std::string & path);
+fs::path get_real_path_at(const fs::path & known_real_path, const std::string & relative_path);
+
+/** get the attributes of a file relative to the known real path */
+int getattr_at(const fs::path & known_real_path, const std::string & relative_path, struct stat * stbuf);
 
 /** fuse functions
  * @{ */
 int tmfs_getattr(const char * path, struct stat *stbuf);
+int tmfs_opendir(const char * path, struct fuse_file_info * fi);
 int tmfs_readdir(const char * path, void * buf, fuse_fill_dir_t filler_callback,
                  off_t offset, struct fuse_file_info * fi);
+int tmfs_releasedir(const char * path, struct fuse_file_info * fi);
 int tmfs_read(const char * path, char * buf, size_t nbytes, off_t offset,
               struct fuse_file_info * fi);
 int tmfs_readlink(const char * path, char * buf, size_t size);
+int tmfs_open(const char * path, struct fuse_file_info * fi);
+int tmfs_release(const char * path, struct fuse_file_info * fi);
 /** @} */

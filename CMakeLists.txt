@@ -12,8 +12,8 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 add_executable(tmfs
   src/main.cc
-  src/readdir.cc
-  src/read.cc
+  src/dir.cc
+  src/file.cc
   src/readlink.cc
   src/getattr.cc
   src/get_real_path.cc
